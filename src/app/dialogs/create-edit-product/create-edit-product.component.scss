@@ -1,0 +1,85 @@
+.dialog-class {
+    width: 700px;
+    height:700px;
+    background-color: antiquewhite;
+}
+.header-class {
+    width:100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.field-class {
+    display: flex;
+    justify-content:space-evenly;
+    align-items:center;
+    margin: 10px;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+
+}
+.image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+.image-class {
+    width: 250px;
+    height: 200px;
+}
+.button-class {
+    background: antiquewhite;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 10vh;
+    cursor:pointer;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    height: 5vh;
+
+}
+.button-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 20px;
+    height:10vh;
+    align-items: flex-end;
+
+ 
+}
+.button-parent-class {
+    display: flex;
+    justify-content: space-evenly;
+    height: 10vh;
+    align-items: flex-end;
+}
+.status-class {
+
+    text-align: center;
+    font-weight: bold;
+    margin: 25px;
+
+}
+.input-field-class {
+    border-radius: 20px;
+    border: 1px solid black;
+    outline: none;
+    width: 21vh;
+    padding-left: 20px;
+    height: 3vh;
+}
+.font-class {
+    text-align: right;
+    font-size: 10px;
+    margin-right: 78px;
+    padding-right: 86px;
+    margin-top: -4px;
+}

@@ -1,0 +1,72 @@
+<div class="header-wrapper">
+
+  <div>
+    <input type="text" placeholder="search here" class="search-class" [formControl]="search">
+  </div>
+
+  <div class="filter-wrapper">
+
+    <label>Filter</label>
+    <div class="filter-class">
+      <mat-select (selectionChange)="onSelectionChange($event)" [formControl] ="selectionControl" [compareWith] ="valueComparision">
+        <mat-option [value]="'none'">None</mat-option>
+        <mat-option *ngFor="let eachProduct of prderCategoryFilters" [value]="eachProduct"> {{eachProduct.text}}</mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+</div>
+
+<div class="parent-class">
+
+  <div class="product-list example">
+    <ng-container *ngIf="productList.length; else noProductsDiv">
+      <div *ngFor="let eachProduct of productList; let i = index"> 
+        <mat-card class="example-card" (click) ="orderClicked(eachProduct, i, 'view')">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{eachProduct.customerName}}</mat-card-title>
+            <mat-card-subtitle>{{statusArr[eachProduct.status]}}</mat-card-subtitle>
+          </mat-card-header>
+          <ng-container >
+
+            <img mat-card-image [src]="status_images[+eachProduct.status]" alt="Photo of image" width='200px' class="image-class">
+          </ng-container>
+          <mat-card-content>
+            <div class="content-class flex-class">
+              <div class="price-class">
+                <label>Amount Payable</label> :
+                <span> {{eachProduct.total_amount}}</span> (₹)
+              </div>
+              <div class="quantity-class">
+                <label>Items</label> :
+                <span>{{eachProduct.no_of_items || 1}}</span>
+              </div>
+
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="flex-class">
+              <button mat-button (click)="$event.stopPropagation();orderClicked(eachProduct, i, 'view')">View</button>
+              <button mat-button (click) ="$event.stopPropagation();deleteClicked(i)">Delete</button>
+
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+
+
+
+    </ng-container>
+    <ng-template #noProductsDiv>
+      No Products Found
+    </ng-template>
+
+
+  </div>
+  <mat-paginator [length]="totalProductListLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page) ="onPageChange($event)">
+  </mat-paginator>
+
+</div>

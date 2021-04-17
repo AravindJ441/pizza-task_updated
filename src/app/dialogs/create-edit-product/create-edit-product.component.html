@@ -1,0 +1,190 @@
+<div class="dialog-class">
+    <div class="header-class">
+
+        <!-- <ng-container [ngSwitch]="data.type">
+            <ng-container *ngSwitchCase="'new-product'">
+                <div class="header-data-class">
+                    <h3>Create New Product</h3>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'edit-product'">
+                <div class="header-data-class">
+                    Edit Product
+                </div>
+            </ng-container>
+
+        </ng-container> -->
+        <ng-container [ngSwitch] ="data.type">
+            <ng-container *ngSwitchCase ="'create-order'">
+
+                <div class ="header-data-class">
+                    <h3> Create New Order</h3>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase ="'view-order'">
+                <div class ="header-data-class">
+                    <h3>Order Details </h3>
+                </div>
+
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="body-class">
+        <div class="form-class">
+            <!-- <div class="image-parent-class">
+                <ng-container *ngIf="!imageAvailable; else showImageDiv">
+
+                    <div class="image-class" (click)="fileDiv.click()">
+                        <img src="assets/icons/add_image.png" class="icon-class">
+                    </div>
+                </ng-container>
+                <ng-template #showImageDiv>
+                    <img [src]="image">
+                    <img src="assets/icons/add_image.png" class="icon-class icon-classs" (click)="fileDiv.click()">
+                </ng-template>
+                <input #fileDiv type="file" style="display: none;" (change)="fileChange($event)" multiple="false">
+
+
+            </div> -->
+            <!-- show image depending on status -->
+          <ng-container [ngSwitch] ="currentStatus">
+              <ng-container *ngSwitchCase ="0">
+                <div class ="image-wrapper">
+
+                    <img src ="assets/images/chef_image.jpg" class ="image-class">
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="1">
+                  <div class ="image-wrapper">
+
+                      <img src ="assets/images/order_received_image.jpg"  class ="image-class">
+                  </div>
+              </ng-container>
+              <ng-container *ngSwitchCase ="2">
+                  <div class ="image-wrapper">
+
+                      <img src ="assets/images/food_preparing.jpeg"  class ="image-class">
+                  </div>
+              </ng-container>
+              <ng-container *ngSwitchCase ="3">
+                  <div class ="image-wrapper">
+
+                      <img src ="assets/images/out_for_delhivery_image.jpeg"  class ="image-class">
+                  </div>
+              </ng-container>
+          </ng-container>
+          <div class ="status-class">
+              {{statusArr[currentStatus]}}
+          </div>
+            <form [formGroup]="addEditFormGroup">
+                <div class="field-class">
+                    <label>Customer Name :</label>
+                    <ng-container [ngSwitch] ="data.type">
+                            <ng-container *ngSwitchCase ="'view-order'">
+                               <!-- <div> {{productName.value}} </div> -->
+                               <div> {{customerName}}</div>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                <input type="text" class="input-field-class" formControlName="productName">
+                            </ng-container>
+                    </ng-container>
+                </div>
+                <ng-container *ngIf ="data.type === 'create-order'">
+                    <mat-error class="matErrorClass">
+                        <div class="font-class"
+                            *ngIf="addEditFormGroup.get('productName').touched && addEditFormGroup.get('productName').invalid && addEditFormGroup.get('productName').errors.required">
+                            *please select a name for product
+                        </div>
+    
+                    </mat-error>
+                </ng-container>
+                <!-- <div class="field-class">
+                    <label>Product Category :</label>
+                    <mat-form-field appearance="fill">
+                        <mat-select panelClass="mat-select-panelclass" formControlName="productCategory">
+                            <mat-option *ngFor="let eachProduct of productCategories" [value]="eachProduct">
+                                {{eachProduct}}
+                            </mat-option>
+                        </mat-select>
+
+                    </mat-form-field>
+
+                </div> -->
+
+                <!-- <mat-error class="matErrorClass">
+                    <div class="font-class"
+                        *ngIf="addEditFormGroup.get('productCategory').touched && addEditFormGroup.get('productCategory').invalid && addEditFormGroup.get('productCategory').errors.required">
+                        *please select a category
+                    </div>
+
+                </mat-error> -->
+                <div class="field-class">
+                    <label>No.of Items :</label>
+                    <ng-container [ngSwitch] ="data.type">
+                        <ng-container *ngSwitchCase ="'view-order'">
+                            {{noOfItems}}
+                        </ng-container>
+                        <ng-container *ngSwitchCase ="'create-order'">
+
+                            <input type="text" class="input-field-class" formControlName="quantity" (keypress)="numberOnly($event)">
+                        </ng-container>
+                    </ng-container>
+                </div>
+                    <ng-container *ngIf ="data.type === 'create-order'">
+                        <mat-error class="matErrorClass">
+                            <div class="font-class"
+                                *ngIf="addEditFormGroup.get('quantity').touched && addEditFormGroup.get('quantity').invalid && addEditFormGroup.get('quantity').errors.required">
+                                *please select no.of items
+                            </div>
+                        </mat-error>
+                    </ng-container>
+                <div class="field-class">
+                    <label>Amount Payable :</label>
+                    <div>
+                        <ng-container  [ngSwitch] ="data.type">
+                            <ng-container *ngSwitchCase ="'view-order'">
+                                {{totalAmount}}
+                            </ng-container>
+                            <ng-container *ngSwitchCase ="'create-order'">
+                                <input type="text" class="input-field-class price-class" formControlName="price" (keypress)="numberOnly($event)">
+                            </ng-container>
+                        </ng-container>
+                        <span>INR</span>
+
+                    </div>
+
+
+                </div>
+                <div *ngIf ="data.type === 'create-order'">
+
+                    <mat-error class="matErrorClass">
+                        <div class="font-class"
+                            *ngIf="addEditFormGroup.get('price').touched && addEditFormGroup.get('price').invalid && addEditFormGroup.get('price').errors.required">
+                            *please select amount i.e payable
+                        </div>
+    
+                    </mat-error>
+                </div>
+                <ng-container *ngIf ="data.type === 'view-order'">
+                    <div class ="button-wrapper">
+
+                        <button (click) ="changeStatusClicked()" class ="button-class">Change Status</button>
+                    </div>
+                </ng-container>
+
+            </form>
+            <div class="button-parent-class">
+                <!-- <div > -->
+                <button class="button-class" (click)="buttonClick(false)"> Cancel</button>
+                <!-- </div> -->
+                <!-- <div class ="button-class"> -->
+                <button class="button-class" (click)="buttonClick(true)"> Done</button>
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

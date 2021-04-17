@@ -1,0 +1,26 @@
+
+
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0
+}
+.top-navigation {
+    width:100%;
+    background-color: pink;
+    height:6vh;
+
+}
+.image-class {
+    width:40px;
+    margin:10px;
+    cursor: pointer;
+}
+.items-class {
+
+    display:flex;
+    justify-content: flex-end;
+    align-items:center;
+    min-height:6vh;
+
+}

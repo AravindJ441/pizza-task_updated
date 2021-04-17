@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './guards/auth.guard';
+import { CreateEditProductDialogComponent } from './dialogs/create-edit-product/create-edit-product.component';
+import { DialogModule } from './dialogs/dialog.module';
+import { HomeManagementService } from './services/home-management.service';
 
 @NgModule({
   declarations: [
@@ -10,9 +15,17 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    DialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthGuard,
+    HomeManagementService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    CreateEditProductDialogComponent
+  ]
 })
 export class AppModule { }

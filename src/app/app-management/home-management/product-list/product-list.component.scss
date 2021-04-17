@@ -1,0 +1,60 @@
+.parent-class {
+    width: 95%;
+    border: 5px solid black;
+    margin: 20px;
+}
+.product-list {
+    height: 75vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.example-card {
+    width:250px;
+    margin:30px;
+    cursor: pointer;
+}
+
+.image-class {
+    object-fit: fill;
+    height: 30vh;
+}
+.header-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin:21px;
+}
+.filter-class {
+    width: 132px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin-left:10px
+}
+.filter-wrapper {
+    display: flex;
+    margin-left: 39px;
+    justify-content: center;
+    width: 300px;
+    align-items:center;
+
+}
+.search-class {
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid black;
+    height:30px;
+    padding-left: 15px;
+}
+.flex-class {
+    display: flex;
+    justify-content: space-around;
+}
+.example::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
