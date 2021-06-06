@@ -5,6 +5,8 @@ import { CreateEditProductDialogComponent } from 'src/app/dialogs/create-edit-pr
 import { HomeManagementService } from 'src/app/services/home-management.service';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { STATUS_IMAGE, STATUS_OF_ORDER } from 'src/app/app.constants';
+import {environment} from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { STATUS_IMAGE, STATUS_OF_ORDER } from 'src/app/app.constants';
 })
 
 export class ProductListCompnent implements OnDestroy {
-    productList: any[];
+    productList: any[] =[]
     prderCategoryFilters: Array<any> = [...STATUS_OF_ORDER].filter(({value}) => value !==0)
     search: FormControl = new FormControl('');
     pageSize: number = 10;
@@ -31,11 +33,20 @@ export class ProductListCompnent implements OnDestroy {
     }, {})
 
 
-    constructor(public homeManagementService: HomeManagementService, public dialog: MatDialog) {
+    constructor(public homeManagementService: HomeManagementService, public dialog: MatDialog, public httpClient : HttpClient) {
+
+
 
     }
     ngOnInit() {
+        this.httpClient.get(environment.baseUrl + `/get-product-list?` ).subscribe((resp: any) => {
+           this.homeManagementService.productList =resp;
+           this.setPaginationValues();
+
+        })
         this.search.valueChanges.pipe(debounceTime(300)).subscribe((resp) => {
+            
+
             let productList = [];
             this.currentPage =1;
             this.selectionControl.setValue('none')
@@ -50,14 +61,18 @@ export class ProductListCompnent implements OnDestroy {
         })
         this.homeManagementService.productAddedSubject.subscribe((resp) => {
             if (resp) {
-                this.homeManagementService.productList.unshift(resp);
-                this.productList = [...this.homeManagementService.productList];
+                // this.homeManagemen   tService.productList.unshift(resp);
+                // this.productList = [...this.homeManagementService.productList];
 
                 this.setPaginationValues();
+                this.httpClient.post(`${environment.baseUrl}` + '/add-product', resp).subscribe((res: any) => {
+                    this.homeManagementService.productList.unshift(res);
+                    this.setPaginationValues();
+
+                })
 
             }
         })
-        this.setPaginationValues();
        
     }
     ngOnDestroy() {
@@ -108,6 +123,16 @@ export class ProductListCompnent implements OnDestroy {
     valueComparision(o1, o2) {
         return o1 && o2 && o1 == o2;
 
+    }
+    likeClicked(eachProduct, i) {
+        let params = 
+        {
+            _id : eachProduct._id,
+            like: eachProduct.like +1
+        } 
+        this.httpClient.post(environment.baseUrl +'/like-product', {...params } ).subscribe((res: any) => {
+            this.productList[i].like = res.like;
+        });
     }
 
 }

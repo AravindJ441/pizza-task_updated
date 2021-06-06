@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path:'app-management',
     loadChildren: () => import('./app-management/app-management.module').then(m => m.AppManagementModule)
-  }
+  },
 ];
 
 @NgModule({

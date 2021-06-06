@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { AppManagementComponent } from './app-management.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 
 
@@ -18,10 +19,9 @@ export const AppManagagementRoutes: Routes = [
                 loadChildren: () => import('./home-management/home-management.module').then(m => m.HomeManagementModule)
             },
         ]
-    },
-    {
+    },{
         path: 'authenticate',
-        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+        component:LoginComponent
     }
 
 

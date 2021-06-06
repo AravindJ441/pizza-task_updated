@@ -117,7 +117,6 @@ export class CreateEditProductDialogComponent implements OnDestroy {
 
                 if (this.addEditFormGroup.valid) {
                     this.dialogRef.close({
-                        _id: new Date().getUTCMilliseconds(),
                         customerName: this.addEditFormGroup.controls.productName.value,
                         no_of_items: this.addEditFormGroup.controls.quantity.value,
                         total_amount: this.addEditFormGroup.get('price').value,

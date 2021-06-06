@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CreateEditProductDialogComponent } from './dialogs/create-edit-product/create-edit-product.component';
 import { DialogModule } from './dialogs/dialog.module';
 import { HomeManagementService } from './services/home-management.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeManagementService } from './services/home-management.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DialogModule
+    DialogModule,
+    HttpClientModule
   ],
   providers: [
     AuthGuard,
